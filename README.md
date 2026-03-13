@@ -18,9 +18,9 @@ A plataforma busca centralizar informações relacionadas ao acompanhamento de p
 
 O projeto SISELO está dividido em diferentes repositórios:
 
-- **user** — backend e banco de dados da aplicação  <colocar link do repo do user>
-- **admin** — funcionalidades administrativas do sistema  <colocar link do repo do admin>
-- **frontend** — interface visual da aplicação  <colocar link do repo do frontend>
+- **user** — backend e banco de dados da aplicação  > colocar link do repo do user
+- **admin** — funcionalidades administrativas do sistema  > colocar link do repo do admin
+- **frontend** — interface visual da aplicação  > colocar link do repo do frontend
 ---
 
 
