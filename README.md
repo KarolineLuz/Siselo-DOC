@@ -14,6 +14,18 @@ A plataforma busca centralizar informações relacionadas ao acompanhamento de p
 
 ---
 
+## Repositórios do Projeto
+
+O projeto SISELO está dividido em diferentes repositórios:
+
+- **user** — backend e banco de dados da aplicação  
+- **admin** — funcionalidades administrativas do sistema  
+- **frontend** — interface visual da aplicação  
+- **DOC** — documentação técnica do projeto
+
+---
+
+
 ## Objetivo da Documentação
 
 Este repositório tem como finalidade:
@@ -30,3 +42,15 @@ Este repositório tem como finalidade:
 ## Estrutura da Documentação
 
 A documentação está organizada da seguinte forma:
+
+docs/ documentação técnica do sistema
+diagramas/ diagramas de arquitetura, fluxos e modelagem
+anexos/ materiais de apoio e referências
+
+
+---
+## Licença
+
+Este projeto está licenciado sob a **Apache License 2.0**.
+
+Consulte o arquivo **LICENSE** para mais informações sobre os termos da licença.
