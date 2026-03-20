@@ -1,0 +1,84 @@
+name: siselo-integracao
+
+services:
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: intranet_cadh
+    volumes:
+      - db_data:/var/lib/mysql
+      - ../Siselo-Users/database.sql:/docker-entrypoint-initdb.d/01-database.sql:ro
+      - ../Siselo-Users/database_patch_003.sql.sql:/docker-entrypoint-initdb.d/03-database_patch_003.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  db-migrate:
+    image: mysql:8.0
+    restart: "no"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ../Siselo-Users/database_patch_003.sql.sql:/migrations/database_patch_003.sql:ro
+    entrypoint:
+      - sh
+      - -c
+      - mysql -h db -uroot -prootpassword intranet_cadh < /migrations/database_patch_003.sql
+
+  users:
+    build: ../Siselo-Users
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      db-migrate:
+        condition: service_completed_successfully
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: rootpassword
+      DB_NAME: intranet_cadh
+    ports:
+      - "18086:80"
+
+  admin:
+    build: ../Siselo-Admin
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      db-migrate:
+        condition: service_completed_successfully
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: rootpassword
+      DB_NAME: intranet_cadh
+    ports:
+      - "18081:80"
+
+  frontend:
+    build: ../Siselo-Frontend
+    restart: unless-stopped
+    depends_on:
+      - users
+    command: >-
+      sh -c "if [ -f server.js ]; then node server.js;
+      elif [ -f package.json ]; then npm start;
+      else echo 'Siselo-Frontend ainda nao possui app executavel.';
+      tail -f /dev/null; fi"
+    ports:
+      - "13000:3000"
+
+  doc:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "18082:80"
+
+volumes:
+  db_data:

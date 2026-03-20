@@ -1,54 +1,91 @@
-# SISELO — Documentação
+# SISELO - Documentacao
 
-Este repositório contém a **documentação oficial do projeto SISELO (Sistema Integrado de Saúde)**.
+Este repositorio contem a documentacao oficial do projeto SISELO (Sistema Integrado de Saude).
 
-O objetivo é centralizar as informações técnicas e organizacionais do sistema, auxiliando no entendimento da arquitetura, funcionamento e desenvolvimento do projeto.
+O objetivo e centralizar as informacoes tecnicas e organizacionais do sistema, ajudando no entendimento da arquitetura, funcionamento e desenvolvimento do projeto.
 
 ---
 
 ## Sobre o Projeto
 
-O **SISELO** é um sistema web desenvolvido para apoiar a integração entre o **Centro de Atenção ao Diabetes e Hipertensão (CADH)** e as **Unidades Básicas de Saúde (UBS)**.
+O SISELO e um sistema web desenvolvido para apoiar a integracao entre o Centro de Atencao ao Diabetes e Hipertensao (CADH) e as Unidades Basicas de Saude (UBS).
 
-A plataforma busca centralizar informações relacionadas ao acompanhamento de pacientes, facilitando a comunicação entre as unidades de saúde e contribuindo para a continuidade do cuidado.
+A plataforma busca centralizar informacoes relacionadas ao acompanhamento de pacientes, facilitando a comunicacao entre as unidades de saude e contribuindo para a continuidade do cuidado.
 
 ---
 
-## Repositórios do Projeto
+## Repositorios do Projeto
 
-O projeto SISELO está dividido em diferentes repositórios:
+O projeto SISELO esta dividido em diferentes repositorios:
 
-- **user** — backend e banco de dados da aplicação  > colocar link do repo do user
-- **admin** — funcionalidades administrativas do sistema  > colocar link do repo do admin
-- **frontend** — interface visual da aplicação  > colocar link do repo do frontend
+- `Siselo-Users` - backend e banco de dados da aplicacao
+- `Siselo-Admin` - funcionalidades administrativas do sistema
+- `Siselo-Frontend` - interface visual da aplicacao
+- `Siselo-DOC` - documentacao e integracao local da stack
+
 ---
 
+## Objetivo da Documentacao
 
-## Objetivo da Documentação
+Este repositorio tem como finalidade:
 
-Este repositório tem como finalidade:
-
-- registrar a documentação técnica do sistema  
-- descrever a arquitetura do projeto  
-- documentar funcionalidades e módulos do sistema  
-- organizar diagramas e modelagens do banco de dados  
-- registrar decisões técnicas do desenvolvimento  
+- registrar a documentacao tecnica do sistema
+- descrever a arquitetura do projeto
+- documentar funcionalidades e modulos do sistema
+- organizar diagramas e modelagens do banco de dados
+- registrar decisoes tecnicas do desenvolvimento
 - facilitar o entendimento do projeto por novos desenvolvedores
 
 ---
 
-## Estrutura da Documentação
+## Estrutura da Documentacao
 
-A documentação está organizada da seguinte forma:
+A documentacao esta organizada da seguinte forma:
 
-docs/ documentação técnica do sistema
-diagramas/ diagramas de arquitetura, fluxos e modelagem
-anexos/ materiais de apoio e referências
-
+- `docs/` - documentacao tecnica do sistema
+- `diagramas/` - diagramas de arquitetura, fluxos e modelagem
+- `anexos/` - materiais de apoio e referencias
 
 ---
-## Licença
 
-Este projeto está licenciado sob a **Apache License 2.0**.
+## Integracao Local com Docker
 
-Consulte o arquivo **LICENSE** para mais informações sobre os termos da licença.
+O repositorio `Siselo-DOC` tambem e o ponto central de integracao local dos demais repositorios do projeto.
+
+O arquivo `docker-compose.yml` deste repositorio orquestra:
+
+- `db` - banco MySQL compartilhado
+- `users` - backend principal
+- `admin` - modulo administrativo
+- `frontend` - interface web
+- `doc` - documentacao do projeto
+
+### Como subir tudo
+
+Dentro da pasta `Siselo-DOC`, execute:
+
+```bash
+docker compose up --build
+```
+
+### Portas usadas
+
+- `users` - `http://localhost:18086`
+- `admin` - `http://localhost:18081`
+- `frontend` - `http://localhost:13000`
+- `doc` - `http://localhost:18082`
+
+### Observacoes
+
+- o banco `db` nao e exposto para fora do Docker, evitando conflito de porta local
+- o `Siselo-DOC` fica responsavel por integrar os repositorios sem depender da pasta agregadora `Siselo - Saude`
+- o `Siselo-Users` ainda pode manter um `docker-compose.yml` proprio para uso isolado, se necessario
+- o `frontend` foi configurado de forma tolerante no compose para nao derrubar a stack enquanto esse repositorio ainda estiver incompleto
+
+---
+
+## Licenca
+
+Este projeto esta licenciado sob a Apache License 2.0.
+
+Consulte o arquivo `LICENSE` para mais informacoes sobre os termos da licenca.
