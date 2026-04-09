@@ -56,9 +56,8 @@ O arquivo `docker-compose.yml` deste repositorio orquestra:
 
 - `db` - banco MySQL compartilhado
 - `users` - backend principal
-- `admin` - modulo administrativo
-- `frontend` - interface web
-- `doc` - documentacao do projeto
+- `repo-browser` - navegador interno dos repositorios do workspace
+- `gateway` - entrada unica da homologacao em uma porta so
 
 ### Como subir tudo
 
@@ -68,19 +67,44 @@ Dentro da pasta `Siselo-DOC`, execute:
 docker compose up --build
 ```
 
-### Portas usadas
+Ou em segundo plano:
 
-- `users` - `http://localhost:18086`
-- `admin` - `http://localhost:18081`
-- `frontend` - `http://localhost:13000`
-- `doc` - `http://localhost:18082`
+```bash
+docker compose up -d --build
+```
+
+Ou pelo atalho PowerShell:
+
+```powershell
+.\scripts\homolog-up.ps1
+```
+
+Para encerrar a stack:
+
+```bash
+docker compose down
+```
+
+### Porta usada
+
+- stack unificada - `http://localhost:8080`
+
+### Rotas principais
+
+- aplicacao principal (`Siselo-Users`) - `http://localhost:8080/`
+- hub da homologacao - `http://localhost:8080/hub/`
+- documentacao/repo `Siselo-DOC` - `http://localhost:8080/docs/`
+- repo `Siselo-Users` - `http://localhost:8080/users-repo/`
+- repo `Siselo-Admin` - `http://localhost:8080/admin-site/`
+- repo `Siselo-Frontend` - `http://localhost:8080/frontend-site/`
+- navegador geral de todos os repositorios - `http://localhost:8080/repos/`
 
 ### Observacoes
 
 - o banco `db` nao e exposto para fora do Docker, evitando conflito de porta local
-- o `Siselo-DOC` fica responsavel por integrar os repositorios sem depender da pasta agregadora `Siselo - Saude`
-- o `Siselo-Users` ainda pode manter um `docker-compose.yml` proprio para uso isolado, se necessario
-- o `frontend` foi configurado de forma tolerante no compose para nao derrubar a stack enquanto esse repositorio ainda estiver incompleto
+- o `Siselo-DOC` continua como ponto central da integracao local
+- o gateway aceita tanto as rotas novas quanto redirecionamentos antigos com `/public/*` do `Siselo-Users`
+- `Siselo-Admin` e `Siselo-Frontend` ainda nao possuem aplicacoes completas neste workspace, por isso sao expostos como repositorios navegaveis pela mesma porta ate virarem apps executaveis
 
 ---
 

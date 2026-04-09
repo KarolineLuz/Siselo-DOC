@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SISELO Homolog</title>
+  <style>
+    :root {
+      --bg: #f3f1ea;
+      --panel: #fffaf2;
+      --line: #d9cfbf;
+      --text: #1f2a24;
+      --muted: #5f6b63;
+      --accent: #1b6f58;
+      --accent-2: #b55d2a;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, #f8ead4 0, transparent 35%),
+        linear-gradient(180deg, #f4f0e7 0%, #ece5d8 100%);
+      color: var(--text);
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px 56px;
+    }
+
+    .hero {
+      background: rgba(255, 250, 242, 0.92);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 18px 45px rgba(56, 52, 43, 0.08);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(27, 111, 88, 0.1);
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 16px 0 12px;
+      font-size: clamp(30px, 5vw, 54px);
+      line-height: 1.02;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: rgba(255, 250, 242, 0.96);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 18px;
+      transition: transform 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+      box-shadow: 0 14px 32px rgba(56, 52, 43, 0.06);
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent-2);
+      box-shadow: 0 18px 36px rgba(56, 52, 43, 0.1);
+    }
+
+    .card strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: rgba(181, 93, 42, 0.1);
+      color: var(--accent-2);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .notes {
+      margin-top: 20px;
+      padding: 18px;
+      background: rgba(27, 111, 88, 0.06);
+      border-left: 4px solid var(--accent);
+      border-radius: 14px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <span class="eyebrow">Homologacao Local</span>
+      <h1>SISELO em uma porta so</h1>
+      <p>
+        Esta stack centraliza o ambiente local em uma unica porta. A aplicacao principal roda na raiz,
+        e os demais repositorios ficam acessiveis por rotas dedicadas para navegacao e homologacao.
+      </p>
+
+      <div class="grid">
+        <a class="card" href="/">
+          <strong>Aplicacao Principal</strong>
+          <span>`/` aponta para o Siselo-Users com banco MySQL compartilhado.</span>
+          <span class="tag">/</span>
+        </a>
+
+        <a class="card" href="/docs/">
+          <strong>Repositorio de Documentacao</strong>
+          <span>Navegue pelo Siselo-DOC sem abrir outra porta.</span>
+          <span class="tag">/docs/</span>
+        </a>
+
+        <a class="card" href="/users-repo/">
+          <strong>Repositorio Siselo-Users</strong>
+          <span>Acesse arquivos e estrutura do backend rapidamente.</span>
+          <span class="tag">/users-repo/</span>
+        </a>
+
+        <a class="card" href="/admin-site/">
+          <strong>Repositorio Siselo-Admin</strong>
+          <span>Exposto para homologacao enquanto o modulo ainda nao tem app propria.</span>
+          <span class="tag">/admin-site/</span>
+        </a>
+
+        <a class="card" href="/frontend-site/">
+          <strong>Repositorio Siselo-Frontend</strong>
+          <span>Disponivel pela mesma porta enquanto a interface ainda evolui.</span>
+          <span class="tag">/frontend-site/</span>
+        </a>
+
+        <a class="card" href="/repos/">
+          <strong>Navegador Geral de Repositorios</strong>
+          <span>Lista completa do workspace com todos os repositorios do Siselo.</span>
+          <span class="tag">/repos/</span>
+        </a>
+      </div>
+
+      <div class="notes">
+        <p>
+          Quando `Siselo-Admin` e `Siselo-Frontend` virarem apps executaveis, basta trocar os destinos dessas rotas
+          no gateway sem mudar o ponto de entrada da homologacao.
+        </p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
