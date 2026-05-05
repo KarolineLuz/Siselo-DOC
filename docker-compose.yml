@@ -10,7 +10,7 @@ services:
     volumes:
       - db_data:/var/lib/mysql
       - ../Siselo-Users/database.sql:/docker-entrypoint-initdb.d/01-database.sql:ro
-      - ../Siselo-Users/database_patch_003.sql.sql:/docker-entrypoint-initdb.d/03-database_patch_003.sql:ro
+      - ../Siselo-Users/database_patch_003.sql:/docker-entrypoint-initdb.d/03-database_patch_003.sql:ro
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       timeout: 20s
@@ -23,7 +23,7 @@ services:
       db:
         condition: service_healthy
     volumes:
-      - ../Siselo-Users/database_patch_003.sql.sql:/migrations/database_patch_003.sql:ro
+      - ../Siselo-Users/database_patch_003.sql:/migrations/database_patch_003.sql:ro
     entrypoint:
       - sh
       - -c
@@ -42,6 +42,7 @@ services:
       DB_USER: root
       DB_PASSWORD: rootpassword
       DB_NAME: intranet_cadh
+      FRONTEND_ORIGIN: http://localhost:13000
     ports:
       - "18086:80"
 
